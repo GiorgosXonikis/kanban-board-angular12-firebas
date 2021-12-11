@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "kanban-ng12": {
+      "hosting": {
+        "kanban-board-angular12-firebase": [
+          "kanban-ng12"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "kanban-ng12"
+  }
+}
