@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'kanban-board-angular12-firebase';
+
+  constructor(private bo: BreakpointObserver) {
+
+    this.bo.observe(Breakpoints.Handset).subscribe(console.log);
+
+  }
+
+
 }

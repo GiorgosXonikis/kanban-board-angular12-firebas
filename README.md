@@ -1,4 +1,4 @@
-# KanbanBoardAngular12Firebase
+# Kanban Board with Angular 12 and Firebase
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.9.
 
