@@ -7,12 +7,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'kanban-board-angular12-firebase';
+    title = 'kanban-board-angular12-firebase';
 
-  constructor(private bo: BreakpointObserver) {
+    constructor(private bo: BreakpointObserver) {
 
-    this.bo.observe(Breakpoints.Handset).subscribe(console.log);
+        this.bo.observe(Breakpoints.Handset).subscribe(console.log);
 
-  }
+    }
 
 }
