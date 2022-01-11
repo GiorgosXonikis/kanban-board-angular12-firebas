@@ -33,7 +33,7 @@ const modules = [
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
 ];
 
 @NgModule({
