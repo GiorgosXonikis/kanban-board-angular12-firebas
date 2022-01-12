@@ -96,7 +96,6 @@ $custom-typography: mat-typography-config(
         $font-family: 'sofia-pro'
 );
 
-
 @include mat-core($custom-typography);
 
 $custom-orange: (
@@ -158,4 +157,9 @@ body { margin: 0; font-family: sofia-pro, sans-serif; }
 a {
         color: white;
         text-decoration: none;
+}
+
+.snackbar-warning{
+        background-color: map-get($custom-orange, 200) !important;
+        min-width: 18vw !important;
 }
