@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, pluck, shareReplay, tap } from 'rxjs/operators';
+import firebase from 'firebase/compat';
+import { AuthService } from '../../user/auth.service';
 
 @Component({
     selector: 'app-navbar',
@@ -9,6 +11,8 @@ import { map, shareReplay } from 'rxjs/operators';
     styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+
+    authState$!: Observable<firebase.User | null>;
 
     /** Less than 600 px */
     isHandset$: Observable<boolean> = this.breakpointObserver
@@ -18,7 +22,10 @@ export class NavBarComponent {
             shareReplay()
         );
 
-    constructor(private breakpointObserver: BreakpointObserver) {
+    constructor(private breakpointObserver: BreakpointObserver,
+                private authService: AuthService) {
+
+        this.authState$ = this.authService.getState();
     }
 
 }
