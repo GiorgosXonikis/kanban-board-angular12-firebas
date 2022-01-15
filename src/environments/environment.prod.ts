@@ -2,6 +2,7 @@ export const environment = {
     production: true,
 
     firebaseConfig: {
+        databaseURL: 'https://kanban-ng12.firebaseio.com',
 
         apiKey: 'AIzaSyAM2Vd6X59mat8LaGWbSFBlzrGylEMwiQI',
 

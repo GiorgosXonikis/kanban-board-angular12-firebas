@@ -1,0 +1,26 @@
+<ng-container *ngIf="boards$ | async">
+
+    <div cdkDropList
+         cdkDropListOrientation="horizontal"
+         class="boards"
+         (cdkDropListDropped)="drop($event)">
+
+        <!-- Boards Loop -->
+        <app-board cdkDrag
+                   *ngFor="let board of boards"
+                   [board]="board">
+            <mat-icon cdkDragHandle class="handle"> drag_indicator </mat-icon>
+        </app-board>
+
+        <!-- New Board Button -->
+        <div class="new-board-button">
+            <button mat-raised-button
+                    color="accent"
+                    cdkDragDisabled
+                    (click)="create()">
+                New Board
+            </button>
+        </div>
+    </div>
+
+</ng-container>

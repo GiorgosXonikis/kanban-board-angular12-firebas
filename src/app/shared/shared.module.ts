@@ -13,10 +13,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NavBarComponent } from './navbar/nav-bar.component';
+import { DeleteButtonComponent } from './delete-button/delete-button.component';
 
 const components: any[] = [
     NavBarComponent,
-    // DeleteButtonComponent
+    DeleteButtonComponent
 ];
 
 const modules = [
@@ -33,7 +34,7 @@ const modules = [
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSnackBarModule,
+    MatSnackBarModule
 ];
 
 @NgModule({
