@@ -10,15 +10,15 @@ export class DeleteButtonComponent {
 
     @Output() delete = new EventEmitter<boolean>();
 
-    cancel() {
+    cancel(): void {
         this.canDelete = false;
     }
 
-    prepareForDelete() {
+    prepareForDelete(): void {
         this.canDelete = true;
     }
 
-    deleteBoard() {
+    deleteBoard(): void {
         this.delete.emit(true);
         this.canDelete = false;
     }

@@ -1,19 +1,30 @@
 import { Injectable } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
 import { Board, Task } from './board.model';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
 import { AuthService } from '../user/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class BoardService {
-    constructor(private afAuth: AngularFireAuth,
-                private authService: AuthService,
+    constructor(private authService: AuthService,
                 private db: AngularFirestore) {
     }
+
+    /**
+     * Get all boards owned by current user
+     */
+    get boards$(): Observable<Board[]> {
+        const user = this.authService.user;
+        return this.db
+            .collection<Board>('boards', ref =>
+                ref.where('uid', '==', user?.uid).orderBy('priority')
+            )
+            .valueChanges({ idField: 'id' });
+    }
+
 
     /**
      * Creates a new board for the current user
@@ -28,31 +39,13 @@ export class BoardService {
     }
 
     /**
-     * Get all boards owned by current user
-     */
-    getUserBoards() {
-        return this.afAuth.authState.pipe(
-            switchMap(user => {
-                if (user) {
-                    return this.db
-                        .collection<Board>('boards', ref =>
-                            ref.where('uid', '==', user.uid).orderBy('priority')
-                        )
-                        .valueChanges({ idField: 'id' });
-                } else {
-                    return [];
-                }
-            }),
-        );
-    }
-
-    /**
      * Run a batch write to change the priority of each board for sorting
      */
     sortBoards(boards: Board[]) {
-        const db = firebase.firestore();
-        const batch = db.batch();
-        const refs = boards.map(b => db.collection('boards').doc(b.id));
+        const firestore = firebase.firestore();
+        const batch = firestore.batch();
+        const refs = boards.map(board => firestore.collection('boards').doc(board.id));
+
         refs.forEach((ref, idx) => batch.update(ref, { priority: idx }));
         batch.commit();
     }
@@ -88,4 +81,6 @@ export class BoardService {
             .doc(boardId)
             .delete();
     }
+
+
 }

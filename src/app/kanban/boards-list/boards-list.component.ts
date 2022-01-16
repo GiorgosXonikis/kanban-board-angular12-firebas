@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,7 +11,8 @@ import { MatDialogRef } from '@angular/material/dialog/dialog-ref';
 @Component({
     selector: 'app-boards-list',
     templateUrl: './boards-list.component.html',
-    styleUrls: ['./boards-list.component.scss']
+    styleUrls: ['./boards-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardsListComponent implements OnInit {
     boards$!: Observable<Board[]>;
@@ -22,7 +23,7 @@ export class BoardsListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.boards$ = this.boardService.getUserBoards()
+        this.boards$ = this.boardService.boards$
             .pipe(
                 tap(boards => this.boards = boards)
             );

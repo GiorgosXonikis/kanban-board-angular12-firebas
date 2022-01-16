@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { TaskDialogComponent } from '../dialogs/task-dialog.component';
+import { ITaskAction, TaskDialogComponent } from '../dialogs/task-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { BoardService } from '../board.service';
 import { Board, ILabel, Task } from '../board.model';
@@ -32,7 +32,14 @@ export class BoardComponent {
     edit(task: Task, idx: number): void {
         const dialogRef = this.openDialog(task, idx, false);
 
-        dialogRef.afterClosed().subscribe((value: { task: Task, idx: number }) => {
+        dialogRef.afterClosed().subscribe((value: { task: Task, idx: number, action: ITaskAction }) => {
+            /** Delete Task */
+            if (value?.action === ITaskAction.DELETE) {
+                this.boardService.removeTask(this.board.id ?? '', task);
+                return;
+            }
+
+            /** Update Task */
             if (value?.task) {
                 const tasks = [...<Task[]> this.board.tasks] ?? [];
                 tasks.splice(value.idx, 1, value.task);
